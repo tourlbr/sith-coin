@@ -9,7 +9,7 @@ export class Block {
   constructor(
     public timestamp: string,
     public transactions: Transaction[],
-    public previousHash: string = ''
+    public previousHash: string = ""
   ) {
     this.timestamp = timestamp;
     this.transactions = transactions;
@@ -23,12 +23,22 @@ export class Block {
     return sha256(this.previousHash + this.timestamp + JSON.stringify(this.transactions) + this.nonce).toString();
   }
 
-  public mineBlock(difficulty: number) {
+  public mineBlock(difficulty: number): void {
     while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("$")) {
       this.nonce++
       this.hash = this.calculateHash();
     }
 
     console.log(`Block mined: ${this.hash}`);
+  }
+
+  public hasValidTransaction(): boolean {
+    for (const transaction of this.transactions) {
+      if (!transaction.isValid()) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }

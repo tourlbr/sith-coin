@@ -30,13 +30,6 @@ export class BlockChain {
     return this.chain[this.chain.length -1];
   }
 
-  // public addBlock(newBlock: Block): void {
-  //   newBlock.previousHash = this.getLatestBlock().hash;
-  //   newBlock.mineBlock(this.difficulty);
-
-  //   this.chain.push(newBlock);
-  // }
-
   public minePendingTransactions(miningRewardAddress: string): void {
     const block = new Block(
       this.formatTimestamp(new Date().toISOString(), ISO_FORMAT, TIMEZONE),
@@ -52,7 +45,15 @@ export class BlockChain {
     ];
   }
 
-  public createTransaction(transaction: Transaction): void {
+  public addTransaction(transaction: Transaction): void {
+    if (!transaction.fromAddress || !transaction.toAddress) {
+      throw new Error("Transaction must include from and to address!");
+    }
+
+    if (!transaction.isValid()) {
+      throw new Error("Cannot add invalid Transaction to the chain!");
+    }
+
     this.pendingTransactions.push(transaction);
   }
 
@@ -74,10 +75,14 @@ export class BlockChain {
     return balance;
   }
 
-  public isValid(): boolean {
+  public isChainValid(): boolean {
     for (let i = 1; i < this.chain.length; i++) {
       const currentBlock = this.chain[i];
       const previousBlock = this.chain[i - 1];
+
+      if(!currentBlock.hasValidTransaction()) {
+        return false;
+      }
 
       if (currentBlock.hash !== currentBlock.calculateHash()) {
         return false;
