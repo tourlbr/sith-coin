@@ -30,7 +30,7 @@ export class BlockchainViewerComponent implements OnInit {
   }
 
   public selectedBlockHasTransaction(): boolean {
-    return this.blockHasTransaction(this.selectedBlock as Block);
+    return this.blockHasTransaction(this.selectedBlock);
   }
 
   public isSelectedBlock(block: Block): boolean {

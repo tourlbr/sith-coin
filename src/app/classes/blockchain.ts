@@ -20,7 +20,7 @@ export class BlockChain {
   private createGenesisBlock(): Block {
     return new Block(
       formatTimestamp(ISO_GENESIS, ISO_FORMAT, TIMEZONE),
-      [new Transaction(null, "Ajunta Pall", 666)],
+      [],
       "0"
     )
   }
@@ -69,7 +69,7 @@ export class BlockChain {
   }
 
   public getBalanceOfAddress(address: string): number {
-    let balance = 0;
+    let balance = 666;
 
     for (const block of this.chain) {
       for (const transaction of block.transactions) {

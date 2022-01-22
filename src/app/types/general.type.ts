@@ -4,7 +4,7 @@ export interface KeyPair extends EC.ec.KeyPair {};
 export interface Signature extends EC.ec.Signature {};
 
 export interface WalletKey {
-  key: KeyPair;
+  keyPair: KeyPair;
   publicKey: string;
   privateKey: string;
 }
