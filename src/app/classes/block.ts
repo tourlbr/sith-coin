@@ -24,7 +24,7 @@ export class Block {
   }
 
   public mineBlock(difficulty: number): void {
-    while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("$")) {
+    while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
       this.nonce++
       this.hash = this.calculateHash();
     }
@@ -32,7 +32,7 @@ export class Block {
     console.log(`Block mined: ${this.hash}`);
   }
 
-  public hasValidTransaction(): boolean {
+  public hasValidTransactions(): boolean {
     for (const transaction of this.transactions) {
       if (!transaction.isValid()) {
         return false;
