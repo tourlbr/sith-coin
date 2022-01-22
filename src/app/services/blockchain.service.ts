@@ -19,10 +19,6 @@ export class BlockChainService {
     this.generateWalletKeys();
   }
 
-  public getBlocks(): Block[] {
-    return this.blockChainInstance.chain;
-  }
-
   minePendingTransactions() {
     this.blockChainInstance.minePendingTransactions(
       this.walletKeys[0].publicKey
@@ -38,7 +34,7 @@ export class BlockChainService {
     const key = ec.genKeyPair();
 
     this.walletKeys.push({
-      key,
+      keyPair: key,
       publicKey: key.getPublic('hex'),
       privateKey: key.getPrivate('hex'),
     });

@@ -15,7 +15,7 @@ export class BlockViewComponent implements OnInit {
   @Input()
   public selectedBlock: Block;
 
-  private blocksInChain;
+  private blocksInChain: Block[];
 
   constructor(blockChainService: BlockChainService) {
     this.blocksInChain = blockChainService.blockChainInstance.chain;
@@ -24,7 +24,7 @@ export class BlockViewComponent implements OnInit {
   ngOnInit() {}
 
   public blockHasTransaction(): boolean {
-    return (this.block as Block).transactions.length > 0;
+    return this.block.transactions.length > 0;
   }
 
   public isSelectedBlock(): boolean {
@@ -32,6 +32,6 @@ export class BlockViewComponent implements OnInit {
   }
 
   public getBlockNumber(): number {
-    return this.blocksInChain.indexOf(this.block as Block) + 1;
+    return this.blocksInChain.indexOf(this.block) + 1;
   }
 }

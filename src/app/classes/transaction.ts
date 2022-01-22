@@ -1,9 +1,9 @@
-import { formatTimestamp } from './../utils/formatTimestamp';
 import * as sha256 from 'crypto-js/sha256';
 import * as EC from "elliptic";
 
 import { KeyPair, Signature } from "../types/general.type";
 import { ISO_FORMAT, TIMEZONE } from "../enums/general.enum";
+import { formatTimestamp } from './../utils/formatTimestamp';
 
 const ec = new EC.ec("secp256k1");
 
@@ -12,9 +12,9 @@ export class Transaction {
   public timestamp: string;
 
   constructor(
-    public fromAddress: string | null,
-    public toAddress: string,
-    public amount: number
+    public fromAddress: string | null = '',
+    public toAddress: string = 'Ajunta Pall',
+    public amount: number = 0
   ) {
     this.fromAddress = fromAddress;
     this.toAddress = toAddress;

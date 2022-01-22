@@ -14,7 +14,7 @@
   <tbody>
     <tr *ngFor="let transaction of transactions; index as index">
       <td>{{index}}</td>
-      <td class="text-truncate" style="max-width: 100px;">
+      <td class="text-truncate">
 
         <a [routerLink]="['/wallet', transaction.fromAddress]" *ngIf="transaction.fromAddress !== null">{{transaction.fromAddress}}</a>
 
@@ -24,7 +24,7 @@
           <br><small>(That's yours!)</small>
         </span>
       </td>
-      <td class="text-truncate" style="max-width: 100px;">
+      <td class="text-truncate">
           <a [routerLink]="['/wallet', transaction.toAddress]">{{transaction.toAddress}}</a>
 
           <span class="text-muted" *ngIf="blockChainService.addressIsFromCurrentUser(transaction.toAddress)">
@@ -39,7 +39,7 @@
         {{transaction.timestamp}}<br>
         <span class="text-muted"><small>{{transaction.timestamp | date:'EEEE d MMMM y HH:mm:ss zzzz'}}</small></span>
       </td>
-      <td style="max-width: 40px;">
+      <td>
         <span *ngIf="transaction.isValid()">✓</span>
         <span *ngIf="!transaction.isValid()">✗</span>
       </td>

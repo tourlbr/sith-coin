@@ -15,21 +15,21 @@ export class CreateTransactionComponent implements OnInit {
   public ownWalletKey: WalletKey;
 
   constructor(private blockChainService: BlockChainService, private router: Router) {
-    this.newTransaction =  new Transaction(null, "Ajunta Pall", 0);
+    this.newTransaction =  new Transaction();
     this.ownWalletKey = blockChainService.walletKeys[0];
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   createTransaction() {
     const newTransaction = this.newTransaction;
 
     // Set the FROM address and sign the transaction
     newTransaction.fromAddress = this.ownWalletKey.publicKey;
-    newTransaction.signTransaction(this.ownWalletKey.key);
+    newTransaction.signTransaction(this.ownWalletKey.keyPair);
 
     try {
+      console.log(this.newTransaction);
       this.blockChainService.addTransaction(this.newTransaction);
     } catch (error) {
       alert(error);
@@ -37,6 +37,6 @@ export class CreateTransactionComponent implements OnInit {
     }
 
     this.router.navigate(["/new/transaction/pending", { addedTransaction: true }]);
-    this.newTransaction = new Transaction(null, "Ajunta Pall", 0);
+    this.newTransaction = new Transaction();
   }
 }
